@@ -5,17 +5,12 @@ Created on Fri Jun  2 08:41:00 2023
 
 @author: Tiangeng Lu
 """
-
-import time as tm
-print("This script was last run on", tm.strftime("%m/%d%y, %A, %H%M %p"))
-
 import requests
 from scrapy import Selector
 import pandas as pd
 from pandas.tseries.offsets import MonthEnd
 import os
 from urllib import request
-
 
 # URLs
 main_url = 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-statistics/nonimmigrant-visa-statistics/monthly-nonimmigrant-visa-issuances.html'
@@ -33,8 +28,8 @@ print("2021:",len([link for link in national_links if "2021" in link]))
 print("2022:",len([link for link in national_links if "2022" in link]))
 print("2023:",len([link for link in national_links if "2023" in link]))
 
-# 2017 has one month missing, print out links & found December is missing
-# go to website links and found a type
+# 2017 has one month missing, print out links & identify December is missing
+# print out all links about 2017
 print([link for link in national_links if "2017" in link])
 # manually append the following link
 # <a href="/content/dam/visas/Statistics/Non-Immigrant-Statistics/MonthlyNIVIssuances/DECEMBER%202017%20-%20NIV%20Issuances%20by%20Post%20and%20Visa%20Class.pdf" target="_blank" adhocenable="false" class="pdf_link">December 2017 - NIV Issuances by Post and Visa Class<span class="far fa-file-pdf pdf_link"></span></a>
@@ -101,7 +96,7 @@ if not path_Exist:
 print("Now, does the path exist?", os.path.exists(path))
 
 
-# Download all to the folder
+# Download all pdfs to the folder
 for i in range(len(national_catalog)):
     fullfilename = path + '/' + 'nonimm_' + str(national_catalog['mmyy'][i])[:10] + '.pdf'
     request.urlretrieve(national_catalog['url'][i], fullfilename)
