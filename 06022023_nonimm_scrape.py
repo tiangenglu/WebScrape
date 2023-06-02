@@ -3,7 +3,7 @@
 """
 Created on Fri Jun  2 08:41:00 2023
 
-@author: tiangeng
+@author: Tiangeng Lu
 """
 
 import time as tm
@@ -109,23 +109,3 @@ for i in range(len(national_catalog)):
 # Check the files
 len(os.listdir(path))
 sorted(os.listdir(path))
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
