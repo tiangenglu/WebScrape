@@ -18,8 +18,7 @@ main_html = requests.get(main_url).content
 main_selector = Selector(text = main_html)
 all_links = main_selector.xpath('//*[contains(@href, "Class.pdf")]/@href').extract()
 national_links = [link for link in all_links if ("Nationality" in link or "nationality" in link)]
-
-
+# Count the URLs in each year: 2017 should has 10 (from March), 2023 has 4 (up to April), and all other years should have 12
 print("2017:",len([link for link in national_links if "2017" in link]))
 print("2018:",len([link for link in national_links if "2018" in link]))
 print("2019:",len([link for link in national_links if "2019" in link]))
@@ -29,11 +28,11 @@ print("2022:",len([link for link in national_links if "2022" in link]))
 print("2023:",len([link for link in national_links if "2023" in link]))
 
 # 2017 has one month missing, print out links & identify December is missing
-# print out all links about 2017
+# print out all links in 2017
 print([link for link in national_links if "2017" in link])
 # manually append the following link
-# <a href="/content/dam/visas/Statistics/Non-Immigrant-Statistics/MonthlyNIVIssuances/DECEMBER%202017%20-%20NIV%20Issuances%20by%20Post%20and%20Visa%20Class.pdf" target="_blank" adhocenable="false" class="pdf_link">December 2017 - NIV Issuances by Post and Visa Class<span class="far fa-file-pdf pdf_link"></span></a>
-national_links.append('/content/dam/visas/Statistics/Non-Immigrant-Statistics/MonthlyNIVIssuances/DECEMBER%202017%20-%20NIV%20Issuances%20by%20Post%20and%20Visa%20Class.pdf')
+# /content/dam/visas/Statistics/Non-Immigrant-Statistics/MonthlyNIVIssuances/DECEMBER%202017%20-%20NIV%20Issuances%20by%20Nationlity%20and%20Visa%20Class.pdf
+national_links.append('/content/dam/visas/Statistics/Non-Immigrant-Statistics/MonthlyNIVIssuances/DECEMBER%202017%20-%20NIV%20Issuances%20by%20Nationlity%20and%20Visa%20Class.pdf')
 national_links = list(set(national_links))
 len(national_links)
 
@@ -94,7 +93,6 @@ if not path_Exist:
     os.makedirs(path)
 
 print("Now, does the path exist?", os.path.exists(path))
-
 
 # Download all pdfs to the folder
 for i in range(len(national_catalog)):
