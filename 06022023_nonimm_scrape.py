@@ -18,7 +18,7 @@ main_html = requests.get(main_url).content
 main_selector = Selector(text = main_html)
 all_links = main_selector.xpath('//*[contains(@href, "Class.pdf")]/@href').extract()
 national_links = [link for link in all_links if ("Nationality" in link or "nationality" in link)]
-# Count the URLs in each year: 2017 should has 10 (from March), 2023 has 4 (up to April), and all other years should have 12
+# Count the URLs in each year: 2017 should have 10 (from March), 2023 has 4 (up to April), and all other years should have 12
 print("2017:",len([link for link in national_links if "2017" in link]))
 print("2018:",len([link for link in national_links if "2018" in link]))
 print("2019:",len([link for link in national_links if "2019" in link]))
