@@ -5,7 +5,8 @@ Created on Sat Jun  3 08:37:38 2023
 
 @author: Tiangeng Lu
 
-Cleaning all scraped .txt data to data frames, SIMPLIFIED CODES
+Scraped pdf(s)-->txt(s)-->dataframe-->dataframes, SIMPLIFIED CODES
+Including iterative cleaning steps designed for this specific dataset
 """
 
 import os
@@ -13,8 +14,7 @@ from PyPDF2 import PdfReader
 import pandas as pd
 
 ### STEP 1: PDF 
-
-# At this point, we know the directory exists.
+# check the existence of directory
 if os.path.exists('nonimm') == True:
     print(sorted(os.listdir('nonimm'))[:5],'\n...\n', sorted(os.listdir('nonimm'))[-5:])
 else:
