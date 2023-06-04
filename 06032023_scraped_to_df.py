@@ -228,7 +228,21 @@ DF_final['issuance'].sum()
 ### STEP 6: SAVE FINAL DATAFRAME
 DF_final.to_csv('nonimm_alltime.csv', index = False)
 
+### STEP 7: SUBSET by release date and SAVE separately
+release_date = sorted(list(set(DF_final['time'])))
+print(release_date)
 
+path_df = 'nonimmdf'
+if os.path.exists(path_df) == True:
+    print("YES. The directory already exists. \nNO ACTIONS REQUIRED \n")
+    print(sorted(os.listdir(path_df)))
+else:
+    print("The directory doesn't exist. Create it right now.")
+    sorted(os.makedirs(path_df))[:10]
+    print("Does the directory exist now?", os.path.exists(path_df))
 
-
-
+# Generate a list of dataframe names using list comprehension
+df_filenames = [name[:-4] + '.csv' for name in short_names]
+# Loop over all release dates and save the visa statistics by month to disk
+for i in range(len(release_date)):
+    DF_final.loc[DF_final['time'] == release_date[i]].to_csv(path_df + '/' + df_filenames[i], index = False)
