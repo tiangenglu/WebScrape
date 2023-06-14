@@ -26,7 +26,7 @@ len(main_selector.xpath('//*'))
 
 # extract from selector
 all_links = main_selector.xpath('//*[contains(@href,"visa-law0/visa-bulletin/20")]/@href').extract()
-# as of 6/12/2023, visa bulletin for july-2023 is available
+# as of 6/13/2023, visa bulletin for july-2023 is available
 all_links[:5]
 # full url
 prefix = "https://travel.state.gov"
@@ -98,7 +98,7 @@ for i in range(len(url_time_df)):
     # not from the beginning of the program
     sel = Selector(text = html)
     str_all[i] = sel.xpath('//table').extract() 
-# as of 6/12/23, len = 260. In future, run after this.
+# as of 6/13/23, len = 260. In future, run after this.
 print(len(str_all))
 # only include tables that contain the word "Employment"
 tables = [None] * len(str_all)
