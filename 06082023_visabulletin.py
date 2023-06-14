@@ -12,15 +12,10 @@ The next step is: adding codes to update only the new webpage(s) so that this pr
 """
 
 # import packages
-import scrapy
 import requests
 from scrapy import Selector
-import re
-import datetime as dt
 import numpy as np
 import pandas as pd
-import os
-os.chdir('/Users/tiangeng/Documents/Python Files')
 
 # urls
 main_url = 'https://travel.state.gov/content/travel/en/legal/visa-law0/visa-bulletin.html'
@@ -321,7 +316,3 @@ print(df_work['Employment-Based'][df_work['category'].isnull()].value_counts())
 print(df_work['category'].value_counts())
 # output the final dataframe
 df_work.to_csv("visa_bulletin_updated.csv", index=False)
-
-
-
-
