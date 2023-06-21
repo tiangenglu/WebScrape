@@ -238,7 +238,6 @@ if os.path.exists(path_df) == True:
     print(sorted(os.listdir(path_df)))
 else:
     print("The directory doesn't exist. Create it right now.")
-    sorted(os.makedirs(path_df))[:10]
     print("Does the directory exist now?", os.path.exists(path_df))
 
 # Generate a list of dataframe names using list comprehension
