@@ -37,8 +37,19 @@ df_niv['CATEGORY'] = 'N'
 visa_categories_raw = Selector(text = requests.get(visa_categories).content).xpath('//table').extract()
 # length = 2, one for immigrant visa, the other for nonimmigrant visa
 print(len(visa_categories_raw))
-df_niv_more = pd.read_html(visa_categories_raw[0])[0]
-df_iv_more = pd.read_html(visa_categories_raw[1])[0]
+df_niv_more = pd.read_html(visa_categories_raw[0], header = 0)[0]
+# niv has one more column "Required: Before applying for visa"
+df_niv_more.columns = [0,1,2]
+df_niv_more['CATEGORY'] = 'N'
+
+df_iv_more = pd.read_html(visa_categories_raw[1], header = 0)[0]
+df_iv_more.columns = [0,1]
+df_iv_more = df_iv_more.dropna(subset = [1])
+df_iv_more['CATEGORY'] = 'I'
+## Concatenate supplemental descriptions
+visa_directory_more = pd.concat([df_niv_more, df_iv_more], axis = 0)\
+    .rename(columns = {0:'CLASS', 1:'SYMBOL', 2:'PREREQUISITE'})  
+visa_directory_more.to_csv('visa_directory_supplement.csv', index = False)
 
 ################ CLEANING #################
 print(df_iv.columns)
@@ -53,4 +64,3 @@ df_iv_clean['CATEGORY'] = 'I'
 ### CONCATENATE IV & NIV ###
 visa_directory = pd.concat([df_iv_clean, df_niv], axis = 0)
 visa_directory.to_csv('visa_directory.csv', index = False)
-# add DoS Supplement Categories later
