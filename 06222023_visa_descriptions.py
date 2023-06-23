@@ -30,10 +30,27 @@ df_iv = pd.read_html(extracted_raw[0], header = 0)[0]
 ### NIV
 niv_raw = Selector(text = requests.get(niv_link1).content).xpath('//table').extract()
 df_niv = pd.read_html(niv_raw[0], header = 0)[0]
+df_niv.columns = df_niv.columns.str.upper()
+df_niv['CATEGORY'] = 'N'
 
-# DoS Supplement Categories 
+### DoS Supplement Categories 
 visa_categories_raw = Selector(text = requests.get(visa_categories).content).xpath('//table').extract()
 # length = 2, one for immigrant visa, the other for nonimmigrant visa
 print(len(visa_categories_raw))
 df_niv_more = pd.read_html(visa_categories_raw[0])[0]
 df_iv_more = pd.read_html(visa_categories_raw[1])[0]
+
+################ CLEANING #################
+print(df_iv.columns)
+# the following are the category descriptions
+print([row.split(' ') for row in df_iv['SYMBOL'] if len(row.split(' '))>1])
+# keep the original index info, if add the category descriptions back
+df_iv_category = df_iv[df_iv['SYMBOL'].str.split().str.len() >= 2]
+df_iv_clean = df_iv[df_iv['SYMBOL'].str.split().str.len() < 2]
+df_iv_clean.columns = df_iv_clean.columns.str.upper()
+df_iv_clean['CATEGORY'] = 'I'
+
+### CONCATENATE IV & NIV ###
+visa_directory = pd.concat([df_iv_clean, df_niv], axis = 0)
+visa_directory.to_csv('visa_directory.csv', index = False)
+# add DoS Supplement Categories later
