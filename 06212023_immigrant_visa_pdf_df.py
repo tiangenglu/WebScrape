@@ -306,6 +306,7 @@ if os.path.exists(path_df) == True:
     print(sorted(os.listdir(path_df)))
 else:
     print("The directory doesn't exist. Create it right now.")
+    os.makedirs(path_df)
     print("Does the directory exist now?", os.path.exists(path_df))
 # df names for each month
 df_month_filenames = ['iv_'+str(name)+'.csv' for name in national_catalog['mmyy']]
