@@ -314,17 +314,26 @@ df_work.to_csv("visa_bulletin_updated.csv", index=False)
 
 # output subset for skilled immigrants backlog analysis
 skilled = (df_work[df_work['Preference'].isin(['E1','E2','E3'])])[["CHINA-MAINLAND","INDIA","time"]]
+# reshape
+skilled_long = pd.melt(skilled, id_vars = ['Preference','time'], var_name = 'birth', value_vars = ["CHINA-MAINLAND","INDIA"], value_name = 'pd')
 # 'pd' represents "priority date"
-skilled_long = pd.melt(skilled, id_vars = 'time', var_name = 'birth', value_vars = ["CHINA-MAINLAND","INDIA"], value_name = 'pd')
-
 skilled_long['bklg'] = [None] * len(skilled_long)
 for i in range(len(skilled_long)):
     if skilled_long['pd'][i] == 'C':
         skilled_long['pd'][i] = skilled_long['time'][i]
     elif skilled_long['pd'][i] == 'U':
-        skilled_long['pd'][i] = '1990-01-01';
+        # If the visa was "Unavailable" for a month, fill in the last month priority date of the same visa type
+        skilled_long['pd'][i] = skilled_long['pd'][i-3];
 
 skilled_long['time'] = pd.to_datetime(skilled_long['time']).dt.date     
 skilled_long['pd'] = pd.to_datetime(skilled_long['pd']).dt.date     
 skilled_long['bklg'] =  (skilled_long['time'] - skilled_long['pd']).dt.days   
 skilled_long.to_csv('e_bklg.csv', index = False)
+
+skilled_wide = skilled_long.pivot(index = ['Preference','time'], values = 'bklg', columns = 'birth')
+skilled_wide_time = skilled_long.pivot(index = ['time','Preference'], values = 'bklg', columns = 'birth')
+
+with pd.ExcelWriter('skilled.xlsx') as writer:
+    skilled_wide.to_excel(writer, sheet_name = 'wide', freeze_panes = (1,2))
+    skilled_wide_time.to_excel(writer, sheet_name = 'wide2', freeze_panes = (1,2))
+    skilled_long.to_excel(writer, sheet_name = 'long', index = False)
