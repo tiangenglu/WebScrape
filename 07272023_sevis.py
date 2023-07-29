@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 """
 Created on Thu Jul 27 21:08:18 2023
-
 @author: Tiangeng Lu
+This script takes longer to execute (20 minutes +), particularly the `pd.read_html()` part for STEM students.
+Another personal note: I'm saddened to know that my neighbor Cynthia passed away a few weeks ago due to a tragic car accident. My deepest condolences to her family.
 """
 
 import requests
@@ -83,14 +84,21 @@ for i in range(len(stem_catalog)):
     sel = Selector(text = html)
     stem_elements[i] = sel.xpath('//table').extract() 
 print("Are there any STEM webpages have more than 1 tables?\n",[len(element) for element in stem_elements if len(element) > 1])
-# The webpage of STEM July 2018 is blank as of 07/27/2023.
-stem_catalog['how_many'] = [len(element) for element in stem_elements]
-
-stem_catalog['element'] = [None] * len(stem_catalog)
-for i in range(len(stem_catalog)):
-    if stem_catalog['how_many'][i] > 0:
-        stem_catalog['element'][i] = stem_elements[i]
-
+# The webpage of STEM July 2018 is blank as of 07/27/2023. I found this out after seeing an "out of range" error message.
+[len(element) for element in stem_elements]
+# which webpage doesn't have tables?
+blank_page_id = [i for i, element in enumerate(stem_elements) if len(element) < 1]
+if len(blank_page_id) == 0:
+    print("Looks good. Go ahead clean the tables!")
+else:
+    print("ALERT! Skip the following because it's blank:\n", str(blank_page_id))
+    print("Also, remember to update the catalog!")
+# select data row(s) to remove
+stem_catalog = stem_catalog.drop(blank_page_id, axis = 0)
+stem_catalog = stem_catalog.reset_index()
+# update the elements in stem_elements by removing the blank one
+stem_elements = [element for element in stem_elements if len(element) > 0]
+print(len(stem_elements))
 ##################### HTML to DATA (SEVIS) ###########################
 
 #mar2023 = pd.read_html(sevis_elements[0][-1], header = 0)[0]
@@ -155,3 +163,78 @@ with pd.ExcelWriter('sevis.xlsx') as writer:
     SEVIS_all.to_excel(writer, sheet_name = 'detail', freeze_panes = (1,2))
     total_active.to_excel(writer, sheet_name = 'total', freeze_panes = (1,0), index = False)
 ##################### HTML to DATA (SEVIS-STEM) to be continued ###########################
+STEM_dfs = [None] * len(stem_catalog)
+for element in stem_elements:
+    STEM_dfs = [pd.read_html(element[0], header = 0)[0] for element in stem_elements]
+
+for i in range(len(STEM_dfs)):
+    # if repeatedly executed, remove the 'TIME' column
+    #STEM_dfs[i] = STEM_dfs[i].drop('TIME', axis = 1)
+    STEM_dfs[i]['TIME'] = stem_catalog['stamp'][i]
+    STEM_dfs[i].columns = STEM_dfs[i].columns.str.upper()
+
+counts_col = {}
+for df in STEM_dfs:
+    for col in df.columns:
+        if col in counts_col.keys():
+            counts_col[col] += 1
+        else:
+            counts_col[col] = 1
+# print the resulting dictionary of column name counts
+print(counts_col)
+
+# knowing the stem data is HUGE, print shape
+for i in range(len(STEM_dfs)):
+    print(STEM_dfs[i].columns)
+    print(STEM_dfs[i].shape)
+
+stem_rename_dict = {
+    'ABBREVIATION': 'ST',
+    'ABBRV': 'ST',
+    'EDUCATION LEVEL': 'LEVEL',
+    'STUDENT EDUCATION LEVEL': 'LEVEL',
+    'COUNTRY OF CITIZENSHIP': 'CITIZENSHIP',
+    'COC': 'CITIZENSHIP',
+    'ACTIVE NUMBER OF STUDENTS':'COUNT',
+    'COUNT OF ACTIVE STEM STUDENTS':'COUNT'
+    }
+for i in range(len(STEM_dfs)):
+    STEM_dfs[i] = STEM_dfs[i].rename(columns = stem_rename_dict)
+# There's one webpage that contains a table with a blank column. This case it's easy to fix--just select the useful columns
+    STEM_dfs[i] = (STEM_dfs[i])[['STATE', 'ST', 'LEVEL', 'CITIZENSHIP', 'GENDER', 'COUNT', 'TIME']]
+############# FINALLY, OUTPUT CSV ##################
+stem_csv_names = ['stem_' + str(stamp) + '.csv' for stamp in stem_catalog['stamp']]
+if not os.path.exists('sevis_stem'):
+    os.makedirs('sevis_stem')
+for i in range(len(STEM_dfs)):
+    STEM_dfs[i].to_csv('sevis_stem/' + stem_csv_names[i], index = False)
+
+############ STEM SUMMARY STATISTICS ##############
+stem_summary = [None] * len(STEM_dfs)
+# aggregate by State, level of education, and gender
+for i in range(len(STEM_dfs)):
+    stem_summary[i] = pd.pivot_table(STEM_dfs[i], values = 'COUNT', index = ['TIME','ST','LEVEL','GENDER'], aggfunc = 'sum')
+stem_sums = pd.concat([df for df in stem_summary])
+print(stem_sums.shape)
+print(stem_sums.index)
+
+stem_national = [None] * len(STEM_dfs)
+for i in range(len(STEM_dfs)):
+    stem_national[i] = pd.pivot_table(STEM_dfs[i], values = 'COUNT', index = ['TIME','LEVEL'], aggfunc = 'sum')
+stem_national_all = pd.concat([df for df in stem_national])
+
+for df in STEM_dfs:
+    totals= pd.concat([pd.pivot_table(df, values = 'COUNT', index = 'TIME', aggfunc = 'sum') for df in STEM_dfs])
+totals = totals.reset_index(drop = False)
+## State totals by time
+for df in STEM_dfs:
+    states_time = pd.concat([pd.pivot_table(df, values = 'COUNT', index = ['ST','TIME'], aggfunc = 'sum').reset_index(drop = False) for df in STEM_dfs])
+states_time = states_time.sort_values(['ST','TIME'], ascending = True)
+states_time['ST'] = states_time['ST'].astype('category')
+states_time = states_time.set_index('ST')
+########## OUTPUT STEM SUMMARY TO EXCEL #############
+with pd.ExcelWriter('sevis_stem.xlsx') as writer:
+    totals.to_excel(writer, sheet_name = 'total', index = False)
+    stem_national_all.to_excel(writer, sheet_name = 'edu_level', freeze_panes = (1,2))
+    states_time.to_excel(writer, sheet_name = 'state_time', freeze_panes = (1,1), merge_cells = True)
+    stem_sums.to_excel(writer, sheet_name = 'detail', freeze_panes = (1,4))
