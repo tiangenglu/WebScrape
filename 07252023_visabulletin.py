@@ -87,11 +87,17 @@ for i in range(len(mmyy)):
     mmyy_dt[i] = datetime.strptime(mmyy[i],"%B_%Y")
     time_stamp[i] = mmyy_dt[i].strftime("%Y-%m-%d")
 # bind the urls and time-stamp into one dataframe. This is the catalog data
-url_time_df = pd.DataFrame({'url':new_urls, 'stamp':time_stamp})
+url_time_df = pd.DataFrame({
+    'url':new_urls,
+    'year': year,
+    'month': month,
+    'stamp':time_stamp})
 # sort the dates ascendingly
 url_time_df = url_time_df.sort_values(['stamp'], ascending=True)
 url_time_df = url_time_df.reset_index(drop = True)
-url_time_df.to_csv("visa_statistics_catalog.csv", index=False)
+################# OUTPUT CATALOG ###########################
+url_time_df.to_csv("bulletin_catalog.csv", index=False)
+############################################################
 # count frequency of years and months
 # reference from https://stackoverflow.com/questions/17930814/sorting-a-counter-in-python-by-keys
 from collections import Counter
@@ -309,20 +315,23 @@ for i in range(len(df_work)):
 df_work['Preference'] = df_work['Preference'].fillna('Unknown')
 print(df_work['Preference'].value_counts())
 
+############### CSV ##################
 # output the final dataframe
-df_work.to_csv("visa_bulletin_updated.csv", index=False)
+#### 'visa_bulletin_updated.csv' was updated to 'visa_bulletin_alltime.csv' on 07/30/23
+df_work.to_csv("visa_bulletin_alltime.csv", index=False)
+
+############### THE FOLLOWING IS OPTIONAL ###################
 
 # output subset for skilled immigrants backlog analysis
-skilled = (df_work[df_work['Preference'].isin(['E1','E2','E3'])])[["CHINA-MAINLAND","INDIA","time"]]
-# reshape
-skilled_long = pd.melt(skilled, id_vars = ['Preference','time'], var_name = 'birth', value_vars = ["CHINA-MAINLAND","INDIA"], value_name = 'pd')
+skilled = (df_work[df_work['Preference'].isin(['E1','E2','E3'])])[["Preference","CHINA-MAINLAND","INDIA","time"]]
 # 'pd' represents "priority date"
+skilled_long = pd.melt(skilled, id_vars = ['Preference','time'], var_name = 'birth', value_vars = ["CHINA-MAINLAND","INDIA"], value_name = 'pd')
+
 skilled_long['bklg'] = [None] * len(skilled_long)
 for i in range(len(skilled_long)):
     if skilled_long['pd'][i] == 'C':
         skilled_long['pd'][i] = skilled_long['time'][i]
     elif skilled_long['pd'][i] == 'U':
-        # If the visa was "Unavailable" for a month, fill in the last month priority date of the same visa type
         skilled_long['pd'][i] = skilled_long['pd'][i-3];
 
 skilled_long['time'] = pd.to_datetime(skilled_long['time']).dt.date     
