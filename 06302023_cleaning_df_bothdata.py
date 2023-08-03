@@ -127,6 +127,15 @@ if niv_DF_final['count'].dtype != "int":
 print(niv_DF_final['count'].dtype)
 assert niv_DF_final['count'].dtype == "int"
 
+#### added on 08/02/2023, clean country names to reduce their variations
+print('Before text cleaning, there are', str(len(set(niv_DF_final['nationality']))), 'country/region names.')
+niv_DF_final['nationality'] = niv_DF_final['nationality'].str.replace('*','')
+niv_DF_final['nationality'] = niv_DF_final['nationality'].str.replace(r'\s+',' ', regex = True)
+niv_DF_final['nationality'] = niv_DF_final['nationality'].str.replace(' - ','-')
+niv_DF_final['nationality'] = niv_DF_final['nationality'].str.replace(' – ','-')
+niv_DF_final['nationality'] = niv_DF_final['nationality'].str.replace('- ','-')
+niv_DF_final['nationality'] = niv_DF_final['nationality'].str.replace(' -','-')
+print('After text cleaning, there are', str(len(set(niv_DF_final['nationality']))), 'country/region names.')
 # save NIV locally
 niv_DF_final.to_csv('niv_alltime.csv', index = False)
 
@@ -240,6 +249,16 @@ assert iv_DF_final['count'].dtype == "int"
 
 # save IV locally
 iv_DF_final.to_csv('iv_alltime.csv', index = False)
+
+#### added 08/02/2023, reduce country/region name variations
+print('Before text cleaning, there are', str(len(set(iv_DF_final['nationality']))), 'country/region names.')
+iv_DF_final['nationality'] = iv_DF_final['nationality'].str.replace('*','')
+iv_DF_final['nationality'] = iv_DF_final['nationality'].str.replace(r'\s+',' ', regex = True)
+iv_DF_final['nationality'] = iv_DF_final['nationality'].str.replace(' - ','-')
+iv_DF_final['nationality'] = iv_DF_final['nationality'].str.replace(' – ','-')
+iv_DF_final['nationality'] = iv_DF_final['nationality'].str.replace('- ','-')
+iv_DF_final['nationality'] = iv_DF_final['nationality'].str.replace(' -','-')
+print('After text cleaning, there are', str(len(set(iv_DF_final['nationality']))), 'country/region names.')
 
 ########################## CONCATENATE IV & NIV, OUTPUT VISA_ALLTIME ############################
 iv_DF_final['type'] = 'I'
