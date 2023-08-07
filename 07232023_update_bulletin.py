@@ -62,7 +62,7 @@ new_urls = list(set(urls).difference(catalog['url']))
 
 if len(new_urls) == 0:
     print("No updates needed.")
-    exit()
+# NameError: name 'exit' is not defined
 else:
     print("Needs update dataset from the following URL(s):")
     print(new_urls)
