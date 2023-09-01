@@ -22,6 +22,8 @@ import requests
 from scrapy import Selector
 from pandas.tseries.offsets import MonthEnd
 from urllib import request
+# added on 9/1/23
+import sys
 
 def dtime(file):
     return datetime.fromtimestamp(os.path.getmtime(file)).strftime("%Y-%m-%d, %A, %H:%M:%S")
@@ -70,6 +72,13 @@ else:
 new_links = list(set(links).difference(catalog['url']))
 print(len(new_links))
 print(new_links)
+
+# added on 9/1/23 to stop if no new links are detected
+if len(new_links) < 1:
+    print("Stop executing because no new urls were detected.")
+    sys.exit()
+else:
+    print("Continue")
 
 # extract month and year
 
