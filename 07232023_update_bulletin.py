@@ -300,8 +300,12 @@ all_data = all_data.drop_duplicates().reset_index(drop = True)
 print("Done with data preparation. Data were output at", tm.strftime("%Y-%m-%d, %A, %H:%M"))
 print("Visa bulletin updated to", str(all_data['time'].max()))
 print(all_data.shape)
+all_data = all_data.sort_values('time').reset_index(drop = True)
 all_data.to_csv('visa_bulletin_alltime.csv', index = False)
 
 ###### OUTPUT UPDATED CATALOG #######
 catalog_updated = pd.concat([catalog, df_new], axis = 0).drop_duplicates().reset_index(drop = True)
+catalog_updated['stamp'] = catalog_updated['stamp'].astype(str)
+catalog_updated = catalog_updated.sort_values('stamp')
+catalog_updated = catalog_updated.reset_index(drop = True)
 catalog_updated.to_csv('bulletin_catalog.csv', index = False)
