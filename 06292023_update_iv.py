@@ -56,6 +56,7 @@ print("2020:",len([link for link in national_links if "202020" in link])) # not 
 print("2021:",len([link for link in national_links if "2021" in link]))
 print("2022:",len([link for link in national_links if "2022" in link]))
 print("2023:",len([link for link in national_links if "2023" in link]))
+print("2024:",len([link for link in national_links if "2024" in link]))
 
 # add prefix
 prefix = 'https://travel.state.gov'
@@ -91,6 +92,7 @@ print(len(new_links))
 print(new_links)
 
 # added on 9/1/23 to stop if no new links are detected
+# re-ran on 3/3/2024, 4 new links detected
 if len(new_links) < 1:
     print("Stop executing because no new urls were detected.")
     sys.exit()
@@ -129,6 +131,8 @@ df_new['mmyy'] = df_new['year'].str.cat(df_new['month'], sep = '-')
 df_new['mmyy'] = pd.to_datetime(df_new['mmyy'], errors = 'ignore') + MonthEnd()
 df_new['mmyy'] = df_new['mmyy'].dt.date
 
+# confirm the work directory
+print(os.getcwd())
 path = 'iv'
 path_Exist = os.path.exists(path)
 if not path_Exist:
@@ -139,7 +143,7 @@ new_filenames = [None] * len(df_new)
 for i in range(len(df_new)):
     new_filenames[i] = os.getcwd() + '/' + path + '/' + 'iv_' + str(df_new['mmyy'][i])[:10] + '.pdf'     
 new_filenames
-df_new['filename'] = new_filenames
+df_new['filename'] = new_filenames # create the local file names, not yet downloaded
 
 new_status = [None]*len(df_new)
 # check the download status for each filename
@@ -149,7 +153,7 @@ for i, k in enumerate(df_new['filename']):
         print(dtime(k))
     else:
         new_status[i] = False
-        request.urlretrieve(df_new['url'][i], df_new['filename'][i])
+        request.urlretrieve(df_new['url'][i], df_new['filename'][i]) # download here
 # update status        
 for i, k in enumerate(df_new['filename']):
     if os.path.isfile(k):
@@ -199,5 +203,6 @@ print("The txt folder now has", str(len(os.listdir(path_txt))), "files as of", t
 
 
 ############# FINALLY, UPDATE THE CATALOG #####################
+# sort the catalog by time order
 catalog_updated = pd.concat([catalog, df_new], axis = 0).sort_values('mmyy').reset_index(drop = True)
 catalog_updated.to_csv('iv_catalog.csv', index = False)
