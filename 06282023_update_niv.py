@@ -22,7 +22,6 @@ import requests
 from scrapy import Selector
 from pandas.tseries.offsets import MonthEnd
 from urllib import request
-# added on 9/1/23
 import sys
 
 def dtime(file):
@@ -43,6 +42,7 @@ print("2020:",len([link for link in links if "202020" in link])) # not a typo bu
 print("2021:",len([link for link in links if "2021" in link]))
 print("2022:",len([link for link in links if "2022" in link]))
 print("2023:",len([link for link in links if "2023" in link]))
+print("2024:",len([link for link in links if "2024" in link]))
 
 prefix = 'https://travel.state.gov'
 links = [prefix + link for i,link in enumerate(links) if link.startswith('/content')]
@@ -84,6 +84,10 @@ else:
 
 new_month = [link.split('/')[-1].split('%')[0].upper() for link in new_links]
 new_year = [link.split('/')[-1].split('%')[1][2:] for link in new_links]
+#new_year = [int(yr) for yr in new_year] # convert to int
+print(f'New Year: {new_year}') # New Year: ['2023', '2023', '2023', '2024'], string
+print(catalog['year'].unique()) # [2017 2018 2019 2020 2021 2022 2023], be aware of dtype!
+print(f'The data type of year in the catalog dataframe is: {catalog.year[0].dtype}')
 
 # check whether the extracted year and month information 
 
@@ -95,7 +99,8 @@ list(set(catalog['year']))
 
 # add the current year, this is needed whenever we start a new year.
 current_year = str(dt.date.today().year)
-
+print(current_year)
+print(type(current_year))
 
 for item in new_month:
     if item in list(set(catalog['month'])):
@@ -103,22 +108,23 @@ for item in new_month:
     else:
         raise ValueError("Error in extracted MONTH")
 
+# error raised on 3/3/24
 for item in new_year:
-    if item in list(set(catalog['year'])):
+    if item in list(set(catalog['year'].astype(str))): # added .astype(str) to match dtype of new_year
         print("YEAR in existing year list")
     elif item in current_year:
         print("YEAR in current year but not yet in existing list")
     else:
-        raise ValueError("ERROR in extracted YEAR")
+        raise ValueError("ERROR in extracted YEAR") # needs revision
 
 ############ CONSTRUCTING NEW ENTRIES IN CATALOG #################    
 df_new = pd.DataFrame({
     'url': new_links,
     'month': new_month,
-    'year': new_year
+    'year': new_year # has to be string
     })
 # convert mm-yyyy to time stamp in 3 steps
-df_new['mmyy'] = df_new['year'].str.cat(df_new['month'], sep = '-')
+df_new['mmyy'] = df_new['year'].str.cat(df_new['month'], sep = '-') # has to be string
 df_new['mmyy'] = pd.to_datetime(df_new['mmyy'], errors = 'ignore') + MonthEnd()
 df_new['mmyy'] = df_new['mmyy'].dt.date
 
@@ -142,7 +148,7 @@ for i, k in enumerate(df_new['filename']):
         print(dtime(k))
     else:
         new_status[i] = False
-        request.urlretrieve(df_new['url'][i], df_new['filename'][i])
+        request.urlretrieve(df_new['url'][i], df_new['filename'][i]) # download here
 # update status        
 for i, k in enumerate(df_new['filename']):
     if os.path.isfile(k):
