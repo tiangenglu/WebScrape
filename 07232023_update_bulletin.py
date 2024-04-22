@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun Jul 23 16:22:33 2023
-Last ran on April 2, 2024
+Last ran on April 21, 2024
 
 @author: Tiangeng Lu
 
@@ -315,7 +315,7 @@ all_data = all_data.drop_duplicates().reset_index(drop = True)
 print("Done with data preparation. Data were output at", tm.strftime("%Y-%m-%d, %A, %H:%M"))
 print("Visa bulletin updated to", str(all_data['time'].max()))
 print(all_data.shape)
-all_data = all_data.sort_values('time').reset_index(drop = True)
+all_data = all_data.sort_values(by=['time','Preference']).reset_index(drop = True)
 all_data.to_csv('visa_bulletin_alltime.csv', index = False)
 
 ###### OUTPUT UPDATED CATALOG #######
