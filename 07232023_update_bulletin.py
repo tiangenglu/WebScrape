@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun Jul 23 16:22:33 2023
+Last ran on April 2, 2024
 
 @author: Tiangeng Lu
 
@@ -51,6 +52,8 @@ catalog = pd.read_csv('bulletin_catalog.csv').dropna()
 # the following step is necessary
 catalog['year'] = catalog['year'].astype(str)
 print(catalog.info())
+# check the most recent data
+print(catalog.iloc[-1,:])
 
 #catalog['month'] = [mmyy.split('_')[0] for mmyy in catalog['mmyy']]
 #catalog['year'] = [mmyy.split('_')[-1] for mmyy in catalog['mmyy']]
@@ -75,6 +78,7 @@ new_month= [link.split('/')[-1].split('.')[0].split('-')[-2].upper() for link in
 
 # current year
 current_year = str(dt.date.today().year)
+# the visa bulletin predicts info for the next month, so the next year is needed
 next_year = str(dt.date.today().year + 1)
 
 # check whether month and year info were correctly extracted
@@ -138,18 +142,21 @@ info_df_short = info_df_long.drop_duplicates(subset='stamp', keep = 'first')
 info_df_short = info_df_short.reset_index(drop = True)
 
 ##### Convert #####
+from io import StringIO
+
 DF_list = [None] * len(info_df_short)
 for raw in info_df_short['table']:
     # .dropna(how = "any") is optional and specific given the properties of these dataframes
     # without the .dropna() statement, the executing time would reduce to half
-    DF_list = [pd.read_html(raw, header=0)[0].dropna(how = "any") for raw in info_df_short['table']]
+    # wrap `raw` with StringIO()
+    DF_list = [pd.read_html(StringIO(raw), header=0)[0].dropna(how = "any") for raw in info_df_short['table']]
 # Change column names. Note that we can't just change the name of the first column.
 # We have to address all column names
 for df in DF_list:
-    df.columns = ["Employment-Based"] + list(df.columns[1:])
+    df.columns = ["Employment-Based"] + list(df.columns[1:]) # set name of the 1st col
 
 edit_index = []
-for i,df in enumerate(DF_list):
+for i,df in enumerate(DF_list): # check whether colnames still exist in the first row of any dfs
     if df.iloc[0].str.contains("Chargeability", case = False).any() == True:
         print(str(i),df.iloc[0].str.contains("Chargeability", case = False).any())
         edit_index.append(i)
@@ -229,7 +236,7 @@ for i in range(len(DF_list)):
     
 # Merge all dataframes into one
 current_data = pd.concat([df for df in DF_list]).set_index(['time'])
-# fill NA with 'C'
+# fill NA with 'C', maybe ok for current data, when merge w/ historical data, use value from 'All_Chargeability_Except_Listed'
 current_data = current_data.fillna('C')
 current_data['time'] = current_data.index
 current_data = current_data.reset_index(drop = True)
@@ -250,32 +257,31 @@ eb_categories = {
     'Other Worker':'E3_U',
     '5th':'E5'}
 current_data['Preference'] = current_data['Employment-Based'].map(eb_categories)
-
-for i in range(len(current_data)):
-    if '5th ' in current_data['Employment-Based'][i]:
-        current_data['Preference'][i] = 'E5'
-    elif 'Targeted' in current_data['Employment-Based'][i]:
-        current_data['Preference'][i] = 'E5'
-    elif 'Religi' in current_data['Employment-Based'][i]:
-        current_data['Preference'][i] = 'E4_R'
-    elif 'Schedule A' in current_data['Employment-Based'][i]:
-        current_data['Preference'][i] = 'A'
-    elif 'Translator'in current_data['Employment-Based'][i]:
-        current_data['Preference'][i] = 'SIV'
+# updated on 04/21/2024, replace if-elif chained assignment with pandas vectorization
+# Use `df.loc[row_indexer, "col"] = values` instead, to perform the assignment in a single step and ensure this keeps updating the original `df`.
+# use pandas vectorization to assign values
+current_data.loc[current_data['Employment-Based'].str.contains('5th '), "Preference"] = 'E5'
+current_data.loc[current_data['Employment-Based'].str.contains('Targeted'), "Preference"] = 'E5'
+current_data.loc[current_data['Employment-Based'].str.contains('Religi'), "Preference"] = 'E4_R'
+current_data.loc[current_data['Employment-Based'].str.contains('Schedule A'), "Preference"] = 'A'
+current_data.loc[current_data['Employment-Based'].str.contains('Translator'), "Preference"] = 'SIV'
+# end of 04/21/2024 revision
+# fill na with 'Unknown'
 current_data['Preference'] = current_data['Preference'].fillna('Unknown')
 print(current_data['Preference'].value_counts())
 
 ###### END of 07/30/2023 REVISIONS #######
 
 # current country list
-current_countries = [col for col in current_data.columns if col not in ['time', 'Employment-Based']]
-# Get the column index
+# added 'Preference' into the not list on 04/21/2024
+current_countries = [col for col in current_data.columns if col not in ['time', 'Employment-Based','Preference']]
+# Get the column index, e.g., `[1, 2, 3, 4, 5]`
 current_countries_index = [current_data.columns.get_loc(c) for c in current_countries]
-print("Current country column indeces:")
-print(current_countries_index)
+print(f"Current country column indeces: {current_countries_index}")
+
 ## update the 08SEP15 date format to 2015-09-08
 for i in range(len(current_data)):
-    for j in current_countries_index:
+    for j in current_countries_index: # j is the number of country columns
         if len(current_data.iloc[i,j]) == 7:
             current_data.iloc[i,j] = datetime.strptime(current_data.iloc[i,j], "%d%b%y").strftime("%Y-%m-%d")
 
@@ -293,8 +299,17 @@ if len(set(current_data.columns).difference(existing.columns)) == 0:
 else:
     print("There're new columns. Pay attention to them before appending the new data.")
     print(set(current_data.columns).difference(existing.columns))
+# remove fillna('C') from the pipe, they need to be handled case by case, 04/21/2024
+all_data = pd.concat([existing.loc[:, existing.columns != 'category'], current_data]).drop_duplicates()
+# fillna with the value in the All_Chargeability column
+countries_not_in_current=list(set(all_data.columns).difference(current_data.columns))
+print(f"These countries are not listed in the current data: {countries_not_in_current}")
+# .loc[:, cols] to fillna doesn't work
+#all_data.loc[:,countries_not_in_current] = all_data.loc[:,countries_not_in_current].fillna(all_data['All_Chargeability_Except_Listed'])
+# this works, fill na column by column 04/21/2024
+for col in countries_not_in_current:
+    all_data[col] = all_data[col].fillna(all_data['All_Chargeability_Except_Listed'])
 
-all_data = pd.concat([existing.loc[:, existing.columns != 'category'], current_data]).fillna('C').drop_duplicates()
 all_data['time'] = pd.to_datetime(all_data['time']).dt.date
 all_data = all_data.drop_duplicates().reset_index(drop = True)
 print("Done with data preparation. Data were output at", tm.strftime("%Y-%m-%d, %A, %H:%M"))
