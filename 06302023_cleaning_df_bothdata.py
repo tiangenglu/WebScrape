@@ -3,6 +3,8 @@
 """
 Created on Fri Jun 30 20:35:08 2023
 Last script in the first half of 2023
+Last revised on November 15, 2024
+Most recent execution on November 15, 2024
 
 @author: Tiangeng Lu
 
@@ -107,6 +109,7 @@ niv_countries = sorted(list(set(niv_DF_final['nationality'])))
 ## RESTORE ROWS that contain both data and header/footer
 niv_restored_rows = []
 for row in niv_DF_headers['V'] + ',' + niv_DF_headers['time']:
+    # locate any matches
     if any([x in row for x in niv_countries]):
         print(row)
         niv_restored_rows.append(row)
@@ -264,8 +267,29 @@ print('After text cleaning, there are', str(len(set(iv_DF_final['nationality']))
 iv_DF_final['type'] = 'I'
 niv_DF_final['type'] = 'N'
 visa_alltime = pd.concat([iv_DF_final, niv_DF_final],axis = 0).sort_values(by = ['time','type','nationality','visa']).reset_index(drop = True)
-visa_alltime.to_csv('visa_alltime.csv', index = False)
 
+#### added on 10/19/2024, edit on China, Hong Kong, Macau, Taiwan, United Kingdom
+countries = sorted(list(set(visa_alltime['nationality']))) # 1st draft of countries series
+china_list = [country for country in countries if "china".upper() and "mainland".upper() in country]
+tw_list = [country for country in countries if "taiwan".upper() in country]
+hk_list =[country for country in countries if "hong kong".upper() in country]
+mc_list=[country for country in countries if "macau".upper() in country or "macao".upper() in country]
+uk_list = [country for country in countries if "great britain".upper() in country]
+need_rename_list = china_list + tw_list + hk_list + mc_list + uk_list
+# must use ["CHINA"], not "CHINA". If doesn't wrap with [], returns the following:
+# 'CHINACHINATAIWANTAIWANTAIWANMACAUMACAUMACAU'
+renamed_list = ["CHINA"] * len(china_list) + \
+    ["TAIWAN"] * len(tw_list) + ["HONG KONG"] * len(hk_list) + ["MACAU"] * len(mc_list) +\
+        ["UNITED KINGDOM"] * len(uk_list)
+rename_dict = dict(zip(need_rename_list, renamed_list))
+# iv_DF_final['nationality'] = iv_DF_final['nationality'].map(rename_dict)
+#for index, row in visa_alltime.iterrows():
+#    if 'china'.upper() in row['nationality'] or 'taiwan'.upper() in row['nationality'] or 'hong kong'.upper() in row['nationality'] or 'macau'.upper() in row['nationality']:
+        # AttributeError: 'str' object has no attribute 'map'
+#        row['nationality'] = row['nationality'].map(rename_dict)
+new_nationality = visa_alltime['nationality'].map(rename_dict).fillna(visa_alltime['nationality'])
+visa_alltime['nationality'] = new_nationality
 ##### OUTPUT COUNTRY LIST #####
-countries = sorted(list(set(visa_alltime['nationality'])))
+countries = sorted(list(set(visa_alltime['nationality']))) # update the countries series
 pd.DataFrame(countries).rename(columns = {0: 'country'}).to_csv('countries.csv', index = False) 
+visa_alltime.to_csv('visa_alltime.csv', index = False)
