@@ -80,8 +80,11 @@ niv_DF_archive = niv_DF.copy(deep = True)
 niv_DF['V'] = niv_DF['V'].apply(lambda x: x.strip())
 niv_DF = niv_DF[niv_DF['V'].str.len() > 1]
 # don't forget to escape \
-niv_headers = ['NONIMMIGRANT','NATIONALITY VISA','PAGE','\(FY', '\#SBU']
+# <>:60: SyntaxWarning: invalid escape sequence '\('
+# updated on 2025-01-12:  \ to \\, added 'SENSITIVE'
+niv_headers = ['NONIMMIGRANT','NATIONALITY VISA','\\(FY', '\\#SBU','PAGE','SENSITIVE']
 niv_DF_headers = niv_DF[niv_DF['V'].str.contains('|'.join(niv_headers))]
+print(f'The following patterns will be treated as headers/footers:{niv_headers}.')
 niv_removed_initial = list(niv_DF_headers.index)
 niv_DF = niv_DF[~niv_DF.index.isin(niv_removed_initial)]
 
@@ -95,7 +98,7 @@ niv_DF_final['issue'] = [row.split(' ')[-1].strip() for row in niv_DF['V']]
 # wrap with list() to remove original index info
 niv_DF_final['time'] = list(niv_DF['time'])
 
-# verify that all issue rows are numbers
+# verify that all issue rows are numbers, test whether the last character is a number
 not_end_num = [row for row in niv_DF_final['issue'] if row[-1] not in [str(num) for num in list(range(0,10,1))]]
 not_start_num = [row for row in niv_DF_final['issue'] if row[0] not in [str(num) for num in list(range(0,10,1))]]
 if len(not_end_num) == 0 & len(not_start_num) == 0:
@@ -103,6 +106,15 @@ if len(not_end_num) == 0 & len(not_start_num) == 0:
 else:
     print("There are problems in the issue column. Some of them are not numbers.")
 
+# added on 2025-01-12, to identify non-numeric rows in niv_DF_final
+print(niv_DF_final.columns)
+for idx,row in niv_DF_final.iterrows():
+    if row['issue'][-1] not in [str(num) for num in list(range(0, 10, 1))]:
+        print(row)
+
+# testing output
+print(type(niv_DF_final['issue'].iloc[1])) # str
+print(niv_DF_final['issue'].iloc[1][-1]) # the last digit of the string-type number
 # get country list
 niv_countries = sorted(list(set(niv_DF_final['nationality'])))
 
@@ -122,11 +134,11 @@ niv_restored_df['time'] = [row.split(',')[-1].strip() for row in niv_restored_ro
 # concatenate the original and the restored rows
 niv_DF_final = pd.concat([niv_DF_final, niv_restored_df],axis = 0).\
     drop_duplicates().sort_values(by = ['time','nationality','visa']).\
-        reset_index(drop = True).rename(columns = {'issue':'count'})
+        reset_index(drop = True).rename(columns = {'issue':'count'}) # renamed column name from issue to count
 
 if niv_DF_final['count'].dtype != "int":
     niv_DF_final['count'] = niv_DF_final['count'].str.replace(',', '')
-    niv_DF_final['count'] = niv_DF_final['count'].astype('int')
+    niv_DF_final['count'] = niv_DF_final['count'].astype('int') # errors raised here from row 103
 print(niv_DF_final['count'].dtype)
 assert niv_DF_final['count'].dtype == "int"
 
@@ -196,7 +208,8 @@ iv_DF_archive = iv_DF.copy(deep = True)
 iv_DF['V'] = iv_DF['V'].apply(lambda x: x.strip())
 iv_DF = iv_DF[iv_DF['V'].str.len() > 1]
 # don't forget to escape \
-iv_headers = ['PAGE ', 'FOREIGN STATE OF', 'CHARGEABILITY', 'PLACE OF BIRTH', '\(FY 20', '\(FY20','IMMIGRANT VISA']
+# 2025-01-12 updates: \ to \\, added 'SENSITIVE'    
+iv_headers = ['PAGE ', 'FOREIGN STATE OF', 'CHARGEABILITY', 'PLACE OF BIRTH', '\\(FY 20', '\\(FY20','IMMIGRANT VISA', 'SENSITIVE']
 iv_DF_headers = iv_DF[iv_DF['V'].str.contains('|'.join(iv_headers))]
 iv_removed_initial = list(iv_DF_headers.index)
 iv_DF = iv_DF[~iv_DF.index.isin(iv_removed_initial)]
