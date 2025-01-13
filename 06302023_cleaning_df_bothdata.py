@@ -3,8 +3,8 @@
 """
 Created on Fri Jun 30 20:35:08 2023
 Last script in the first half of 2023
-Last revised on November 15, 2024
-Most recent execution on November 15, 2024
+Last revised on Jan 13, 2025
+Most recent execution on Jan 13, 2025
 
 @author: Tiangeng Lu
 
@@ -105,12 +105,10 @@ if len(not_end_num) == 0 & len(not_start_num) == 0:
     print("The issue column looks good.")
 else:
     print("There are problems in the issue column. Some of them are not numbers.")
-
-# added on 2025-01-12, to identify non-numeric rows in niv_DF_final
-print(niv_DF_final.columns)
-for idx,row in niv_DF_final.iterrows():
-    if row['issue'][-1] not in [str(num) for num in list(range(0, 10, 1))]:
-        print(row)
+    for idx,row in niv_DF_final.iterrows():
+        # revised on 2025-01-13, print out rows with non-numeric visa issuance counts
+        if row['issue'][-1] not in [str(num) for num in list(range(0, 10, 1))]:
+            print(row)
 
 # testing output
 print(type(niv_DF_final['issue'].iloc[1])) # str
