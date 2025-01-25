@@ -6,6 +6,7 @@ Created on Thu Jan 23 2025
 @author: Tiangeng Lu
 
 Download geo shape files from https://www2.census.gov/geo/tiger/TIGER2024/
+Unzip
 """
 # create the folder if haven't done it yet
 import os
@@ -37,3 +38,25 @@ for i in range(len(all_links)):
     else:
         print(f'Now downloading {all_links[i]}, {tm.strftime("%Y-%m-%d, %H:%M:%S")}')
         request.urlretrieve(full_urls[i], all_links[i])
+
+# Extract downloaded zipped files
+from zipfile import ZipFile
+zip_files_list = [f for f in os.listdir() if f.endswith(".zip")]
+folder_names = [f.split(".")[0] for f in zip_files_list]
+
+# create folders
+for i in range(len(zip_files_list)):
+    if not os.path.exists(folder_names[i]):
+        os.makedirs(folder_names[i])
+    else:
+        print(f"Folder {folder_names[i]} exists.")
+
+# unzip
+for i in range(len(zip_files_list)):
+    if len(os.listdir(folder_names[i])) < 1:
+        with ZipFile(zip_files_list[i]) as zip_need_extract:
+            print(f'Processing {zip_files_list[i]}, {tm.strftime("%Y-%m-%d, %H:%M:%S")}')
+            zip_need_extract.extractall(path = folder_names[i])
+    else: 
+        print(f'{zip_files_list[i]} has been extracted.')
+        print(os.listdir(folder_names[i]))
