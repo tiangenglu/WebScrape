@@ -17,7 +17,7 @@ import os
 from datetime import datetime
 from pandas.tseries.offsets import MonthEnd
 import datetime as dt
-os.chdir('/Users/tiangeng/Documents/Python Files')
+os.chdir('/Users/tiangeng/Documents/python_files')
 import time as tm
 import sys
 
@@ -86,6 +86,8 @@ print("Are there any SEVIS webpages have more than 1 tables?\n",[len(element) fo
 
 SEVIS_dfs = [None] * len(new_catalog)
 for element in sevis_elements:
+    # FutureWarning(2024-04-02): Passing literal html to 'read_html' is deprecated and will be removed in a future version. 
+    # To read from a literal string, wrap it in a 'StringIO' object.
     SEVIS_dfs = [pd.read_html(element[0], header = 0)[0] for element in sevis_elements]
     print(tm.strftime("%Y-%m-%d, %H:%M:%S"))
 for i in range(len(SEVIS_dfs)):
