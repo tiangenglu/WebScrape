@@ -1,0 +1,214 @@
+SYMBOL,CLASS,SECTION OF LAW,CATEGORY
+IR1,Spouse of U.S. Citizen,INA 201(b).,I
+IR2,Child of U.S. Citizen,INA 201(b).,I
+IR3,Orphan Adopted Abroad by U.S. Citizen,INA 201(b) & INA 101(b)(1)(F).,I
+IH3,Child from Hague Convention Country Adopted Abroad  by U.S. Citizen,INA 201(b) & INA 101(b)(1)(G).,I
+IR4,Orphan to be Adopted in U.S. by U.S. Citizen,INA 201(b) & INA 101(b)(1)(F).,I
+IH4,Child from Hague Convention Country to be Adopted  in U.S. by U.S. Citizen,INA 201(b) & INA 101(b)(1)(G).,I
+IR5,Parent of U.S. Citizen at Least 21 Years of Age,INA 201(b).,I
+CR1,Spouse of U.S. Citizen (Conditional Status),INA 201(b) & 216.,I
+CR2,Stepchild of U.S. Citizen (Conditional Status),INA 201(b) & 216.,I
+IW1,Certain Spouses of Deceased U.S. Citizens,INA 201(b).,I
+IW2,Child of IW1,INA 201(b).,I
+IB1,Self-petition Spouse of U.S. Citizen,INA 204(a)(1)(A)(iii).,I
+IB2,Self-petition child of U.S. Citizen,INA 204(a)(1)(A)(iv).,I
+IB3,Child of IB1,INA 204(a)(1)(A)(iii).,I
+AM1,Vietnam Amerasian Principal,"Section 584(b)(1)(A) of the Foreign Operations,  Export Financing, and Related Programs Appropriations Act, 1988 (as contained  in section 101(e) of Public Law 100-202) as amended.",I
+AM2,Spouse or Child of AM1,"Section 584(b)(1)(A) and 584(b)(1)(B) of the  Foreign Operations, Export Financing, and Related Programs Appropriations  Act, 1988 (as contained in section 101(e) of Public Law 100-202) as amended.",I
+AM3,"Natural Mother of AM1 (and Spouse or Child of Such  Mother) or Person Who has Acted in Effect as the Mother, Father, or  Next-of-Kin of AM1 (and Spouse or Child of Such Person)","Section 584(b)(1)(A) and 584(b)(1)(C) of the  Foreign Operations, Export Financing, and Related Programs Appropriations  Act, 1988 (as contained in section 101(e) of Public Law 100-202) as amended.",I
+SB1,Returning Resident,INA 101(a)(27)(A).,I
+SC1,Person Who Lost U.S. Citizenship by Marriage,INA 101(a)(27)(B) & 324(a).,I
+SC2,Person Who Lost U.S. Citizenship by Serving in  Foreign Armed Forces,INA 101(a)(27)(B) & 327.,I
+SI1,Certain Aliens Employed by the U.S. Government in  Iraq or Afghanistan as Translators or Interpreters,Section 1059 of Public Law 109-163 as amended by  Public Law 110-36.,I
+SI2,Spouse of SI1,Section 1059 of Public Law 109-163 as amended by  Public Law 110-36.,I
+SI3,Child of SI1,Section 1059 of Public Law 109–163 as amended  by Public Law 110–36.,I
+SM1,Alien Recruited Outside the United States Who Has  Served or is Enlisted to Serve in the U.S. Armed Forces for 12 Years,INA 101(a)(27)(K).,I
+SM2,Spouse of SM1,INA 101(a)(27)(K).,I
+SM3,Child of SM1,INA 101(a)(27)(K).,I
+SQ1,Certain Iraqis or Afghans Employed by or on Behalf  of the U.S. Government,"Section 602(b), Division F, Title VI, Omnibus Appropriations  Act of 2009, Public Law 111–8 and Section 1244 of Public Law  110–181.",I
+SQ2,Spouse of SQ1,"Section 602(b), Division F, Title VI, Omnibus  Appropriations Act of 2009, Public Law 111–8 and Section 1244 of Public  Law 110–181.",I
+SQ3,Child of SQ1,"Section 602(b), Division F, Title VI, Omnibus  Appropriations Act of 2009, Public Law 111–8 and Section 1244 of Public  Law 110–181.",I
+SU2,Spouse of U1,INA 245(m)(3) & INA 101(a)(15)(U)(ii).,I
+SU3,Child of U1,INA 245(m)(3) & INA 101(a)(15)(U)(ii).,I
+SU5,Parent of U1,INA 245(m)(3) & INA 101(a)(15)(U)(ii).,I
+F11,Unmarried Son or Daughter of U.S. Citizen,INA 203(a)(1).,I
+F12,Child of F11,INA 203(d) & 203(a)(1).,I
+B11,Self-petition Unmarried Son or Daughter of U.S.  Citizen,INA 204(a)(1)(A)(iv) & INA 203(a)(1).,I
+B12,Child of B11,"INA 203(d), INA 204(a)(1)(A)(iv) & INA  203(a)(1).",I
+F21,Spouse of Lawful Permanent Resident,INA 203(a)(2)(A).,I
+F22,Child of Lawful Permanent Resident,INA 203(a)(2)(A).,I
+F23,Child of F21 or F22,INA 203(d) & INA 203(a)(2)(A).,I
+F24,Unmarried Son or Daughter of Lawful Permanent  Resident,INA 203(a)(2)(B).,I
+F25,Child of F24,INA 203(d) & INA 203(a)(2)(B).,I
+C21,Spouse of Lawful Permanent Resident (Conditional),INA 203(a)(2)(A) & INA 216.,I
+C22,Stepchild of Alien Resident (Conditional),INA 203(a)(2)(A) & INA 216.,I
+C23,Child of C21 or C22 (Conditional),"INA 203(d), INA 203(a)(2)(A) & INA 216.",I
+C24,Unmarried Son or Daughter of Lawful Permanent  Resident (Conditional),INA 203(a)(2)(B) & INA 216.,I
+C25,Child of F24 (Conditional),"INA 203(d), INA 203(a)(2)(B) & INA 216.",I
+B21,Self-petition Spouse of Lawful Permanent Resident,INA 204(a)(1)(B)(ii).,I
+B22,Self-petition Child of Lawful Permanent Resident,INA 204(a)(1)(B)(iii).,I
+B23,Child of B21 or B22,INA 203(d) & INA 204(a)(1)(B)(ii).,I
+B24,Self-petition Unmarried Son or Daughter of Lawful  Permanent Resident,INA 204(a)(1)(B)(iii).,I
+B25,Child of B24,INA 203(d) & INA 204(a)(1)(B)(iii).,I
+FX1,Spouse of Lawful Permanent Resident,INA 202(a)(4)(A) & INA 203(a)(2)(A).,I
+FX2,Child of Lawful Permanent Resident,INA 202(a)(4)(A) & INA 203(a)(2)(A).,I
+FX3,Child of FX1 or FX2,"INA 202(a)(4)(A), INA 203(a)(2)(A) & INA  203(d).",I
+CX1,Spouse of Lawful Permanent Resident (Conditional),"INA 202(a)(4)(A), INA 203(a)(2)(A) & INA 216.",I
+CX2,Stepchild of Lawful Permanent Resident (Conditional),"INA 202(a)(4)(A), INA 203(a)(2)(A) & INA 216.",I
+CX3,Child of CX1 or CX2 (Conditional),"INA 202(a)(4)(A), INA 203(a)(2)(A), INA 203(d)  & INA 216.",I
+BX1,Self-petition Spouse of Lawful Permanent Resident,INA 204(a)(1)(B)(ii).,I
+BX2,Self-petition Child of Lawful Permanent Resident,INA 204(a)(1)(B)(iii).,I
+BX3,Child of BX1 or BX2,INA 204(a)(1)(B)(ii) & 203(d).,I
+F31,Married Son or Daughter of U.S. Citizen,INA 203(a)(3).,I
+F32,Spouse of F31,INA 203(d) & INA 203(a)(3).,I
+F33,Child of F31,INA 203(d) & INA 203(a)(3).,I
+C31,Married Son or Daughter of U.S. Citizen  (Conditional),INA 203(a)(3) & INA 216.,I
+C32,Spouse of C31 (Conditional),"INA 203(d), INA 203(a)(3) & INA 216.",I
+C33,Child of C31 (Conditional),"INA 203(d), INA 203(a)(3) & INA 216.",I
+B31,Self-petition Married Son or Daughter of U.S.  Citizen,INA 204(a)(1)(A)(iv) & INA 203(a)(3).,I
+B32,Spouse of B31,"INA 203(d), INA 204(a)(1)(A)(iv) & INA  203(a)(3).",I
+B33,Child of B31,"INA 203(d), INA 204(a)(1)(A)(iv) & INA  203(a)(3).",I
+F41,Brother or Sister of U.S. Citizen at Least 21 Years  of Age,INA 203(a)(4).,I
+F42,Spouse of F41,INA 203(d) & INA 203(a)(4).,I
+F43,Child of F41,INA 203(d) & INA 203(a)(4).,I
+E11,Alien with Extraordinary Ability,INA 203(b)(1)(A).,I
+E12,Outstanding Professor or Researcher,INA 203(b)(1)(B).,I
+E13,Multinational Executive or Manager,INA 203(b)(1)(C).,I
+E14,"Spouse of E11, E12, or E13","INA 203(d), INA 203(b)(1)(A), INA 203(b)(1)(B)  & INA 203(b)(1)(C).",I
+E15,"Child of E11, E12, or E13","INA 203(d), INA 203(b)(1)(A), INA 203(b)(1)(B)  & INA 203(b)(1)(C).",I
+E21,Professional Holding Advanced Degree or Alien of  Exceptional Ability,INA 203(b)(2).,I
+E22,Spouse of E21,INA 203(d) & INA 203(b)(2).,I
+E23,Child of E21,INA 203(d) & INA 203(b)(2).,I
+E31,Skilled Worker,INA 203(b)(3)(A)(i).,I
+E32,Professional Holding Baccalaureate Degree,INA 203(b)(3)(A)(ii).,I
+E34,Spouse of E31 or E32,"INA 203(d), INA 203(b)(3)(A)(i), INA 203(b)(3)(A)(ii).",I
+E35,Child of E31 or E32,"INA 203(d), INA 203(b)(3)(A)(i) & INA  203(b)(3)(A)(ii).",I
+EW3,Other Worker (Subgroup Numerical Limit),INA 203(b)(3)(A)(iii).,I
+EW4,Spouse of EW3,INA 203(d) & INA 203(b)(3)(A)(iii).,I
+EW5,Child of EW3,INA 203(d) & INA 203(b)(3)(A)(iii).,I
+BC1,Broadcaster in the U.S. employed by the  International Broadcasting Bureau of the Broadcasting Board of Governors or a  grantee of such organization,INA 101(a)(27)(M) & INA 203(b)(4).,I
+BC2,Accompanying spouse of BC1,INA 101(a)(27)(M) & INA 203(b)(4).,I
+BC3,Accompanying child of BC1,INA 101(a)(27)(M) & INA 203(b)(4).,I
+SD1,Minister of Religion,INA 101(a)(27)(C)(ii)(I) & INA 203(b)(4).,I
+SD2,Spouse of SD1,INA 101(a)(27)(C)(ii)(I) & INA 203(b)(4).,I
+SD3,Child of SD1,INA 101(a)(27)(C)(ii)(I) & INA 203(b)(4).,I
+SE1,Certain Employees or Former Employees of the U.S.  Government Abroad,INA 101(a)(27)(D) & INA 203(b)(4).,I
+SE2,Spouse of SE1,INA 101(a)(27)(D) & INA 203(b)(4).,I
+SE3,Child of SE1,INA 101(a)(27)(D) & INA 203(b)(4).,I
+SF1,Certain Former Employees of the Panama Canal  Company or Canal Zone Government,INA 101(a)(27)(E) & INA� 203(b)(4).,I
+SF2,Spouse or Child of SF1,INA 101(a)(27)(E) & INA� 203(b)(4).,I
+SG1,Certain Former Employees of the U.S. Government in  the Panama Canal Zone,INA 101(a)(27)(F) & INA� 203(b)(4).,I
+SG2,Spouse or Child of SG1,INA 101(a)(27)(F) & INA� 203(b)(4).,I
+SH1,"Certain Former Employees of the Panama Canal  Company or Canal Zone Government on April 1, 1979",INA 101(a)(27)(G) & INA� 203(b)(4).,I
+SH2,Spouse or Child of SH1,INA 101(a)(27)(G) & INA 203(b)(4).,I
+SJ1,Certain Foreign Medical Graduates (Adjustments  Only),INA 101(a)(27)(H).,I
+SJ2,Accompanying Spouse or Child of SJ1,INA 101(a)(27)(H) & INA 203(b)(4).,I
+SK1,Certain Retired International Organization  employees,INA 101(a)(27)(I)(iii) & INA 203(b)(4).,I
+SK2,Spouse of SK1,INA 101(a)(27)(I)(iv) & INA 203(b)(4).,I
+SK3,Certain Unmarried Sons or Daughters of an  International Organization Employee,INA 101(a)(27)(I)(i) & INA 203(b)(4).,I
+SK4,Certain Surviving Spouses of a deceased  International Organization Employee,INA 101(a)(27)(I)(ii) & INA 203(b)(4).,I
+SL1,Juvenile Court Dependent (Adjustment Only),INA 101(a)(27)(J) & INA 203(b)(4).,I
+SN1,Certain retired NATO6 civilians,INA 101(a)(27)(L) & INA 203(b)(4).,I
+SN2,Spouse of SN1,INA 101(a)(27)(L) & INA 203(b)(4).,I
+SN3,Certain unmarried sons or daughters of NATO6  civilian employees,INA 101(a)(27)(L) & INA 203(b)(4).,I
+SN4,Certain surviving spouses of deceased NATO6  civilian employees,INA 101(a)(27)(L) & INA 203(b)(4).,I
+SP,"Alien Beneficiary of a petition or labor  certification application filed prior to September 11, 2001, if the petition  or application was rendered void due to a terrorist act of September 11,  2001. Spouse, child of such alien, or the grandparent of a child orphaned by  a terrorist act of September 11, 2001",Section 421 of Public Law 107-56.,I
+SR1,Certain Religious Workers,INA 101(a)(27)(C)(ii)(II) & (III) as amended�  & INA 203(b)(4).,I
+SR2,Spouse of SR1,INA 101(a)(27)(C)(ii)(II) & (III) as amended  & INA 203(b)(4).,I
+SR3,Child of SR1,INA 101(a)(27)(C)(ii)(II) & (III) as amended  & INA 203(b)(4).,I
+C51,Employment Creation OUTSIDE Targeted Areas,INA 203(b)(5)(A).,I
+C52,Spouse of C51,INA 203(d) & INA 203(b)(5)(A).,I
+C53,Child of C51,INA 203(d) & INA 203(b)(5)(A).,I
+T51,Employment Creation IN Targeted Rural/High  Unemployment Area,INA 203(b)(5)(B).,I
+T52,Spouse of T51,INA 203(d) & INA 203(b)(5)(B).,I
+T53,Child of T51,INA 203(d) & INA 203(b)(5)(B).,I
+R51,"Investor Pilot Program, Not in Targeted Area","INA 203(b)(5) & Sec. 610 of the Departments of  Commerce, Justice, and State, the Judiciary and Related Agencies  Appropriations Act, 1993 (Public Law 102–395), as amended.",I
+R52,Spouse of R51,"INA 203(d), INA 203(b)(5) & Sec. 610 of the  Departments of Commerce, Justice, and State, the Judiciary and Related  Agencies Appropriations Act, 1993 (Public Law 102–395), as amended.",I
+R53,Child of R51,"INA 203(d), INA 203(b)(5) & Sec. 610 of the  Departments of Commerce, Justice, and State, the Judiciary and Related Agencies  Appropriations Act, 1993 (Public Law 102–395), as amended.",I
+I51,"Investor Pilot Program, in Targeted Area","INA 203(b)(5) & Sec. 610 of the Departments of  Commerce, Justice, and State, the Judiciary and Related Agencies  Appropriations Act, 1993 (Public Law 102–395), as amended.",I
+I52,Spouse of I51,"INA 203(d), INA 203(b)(5) & Section 610 of the  Departments of Commerce, Justice, and State, the Judiciary and Related  Agencies Appropriations Act, 1993 (Public Law 102–395), as amended.",I
+I53,Child of I51,"INA 203(d), INA 203(b)(5) & Section 610 of the  Departments of Commerce, Justice, and State, the Judiciary and Related  Agencies Appropriations Act, 1993 (Public Law 102–395), as amended.",I
+DV1,Diversity Immigrant,INA 203(c).,I
+DV2,Spouse of DV1,INA 203(d) & INA 203(c).,I
+DV3,Child of DV1,INA 203(d) & INA 203(c).,I
+A1,"Ambassador, Public Minister, Career Diplomat or  Consular Officer, or Immediate Family",INA 101(a)(15)(A)(i).,N
+A2,"Other Foreign Government Official or Employee, or  Immediate Family",INA 101(a)(15)(A)(ii).,N
+A3,"Attendant, Servant, or Personal Employee of A1 or  A2, or Immediate Family",INA 101(a)(15)(A)(iii).,N
+B1,Temporary Visitor for Business,INA 101(a)(15)(B).,N
+B2,Temporary Visitor for Pleasure,INA 101(a)(15)(B).,N
+B1/B2,Temporary Visitor for Business & Pleasure,INA 101(a)(15)(B).,N
+C1,Alien in Transit,INA 101(a)(15)(C).,N
+C1/D,Combined Transit and Crewmember Visa,INA 101(a)(15)(C) and (D).,N
+C2,"Alien in Transit to United Nations Headquarters  District Under Section 11.(3), (4), or (5) of the Headquarters Agreement",INA 101(a)(15)(C).,N
+C3,"Foreign Government Official, Immediate Family,  Attendant, Servant or Personal Employee, in Transit",INA 212(d)(8).,N
+D,Crewmember (Sea or Air),INA 101(a)(15)(D).,N
+E1,"Treaty Trader, Spouse or Child",INA 101(a)(15)(E)(i).,N
+E2,"Treaty Investor, Spouse or Child",INA 101(a)(15)(E)(ii).,N
+E3,Australian Treaty Alien coming to the United States  Solely to Perform Services in a Specialty Occupation,INA 101(a)(15)(E)(iii).,N
+E3D,Spouse or Child of E3,INA 101(a)(15)(E)(iii).,N
+E3R,Returning E3,INA 101(a)(15)(E)(iii).,N
+F1,Student in an academic or language training program,INA 101(a)(15)(F)(i).,N
+F2,Spouse or Child of F1,INA 101(a)(15)(F)(ii).,N
+F3,Canadian or Mexican national commuter student in an  academic or language training program,INA 101(a)(15)(F)(iii).,N
+G1,"Principal Resident Representative of Recognized  Foreign Government to International Organization, Staff, or Immediate Family",INA 101(a)(15)(G)(i).,N
+G2,"Other Representative of Recognized Foreign Member  Government to International Organization, or Immediate Family",INA 101(a)(15)(G)(ii).,N
+G3,"Representative of Nonrecognized or Nonmember  Foreign Government to International Organization, or Immediate Family",INA 101(a)(15)(G)(iii).,N
+G4,"International Organization Officer or Employee, or Immediate  Family",INA 101(a)(15)(G)(iv).,N
+G5,"Attendant, Servant, or Personal Employee of G1  through G4, or Immediate Family",INA 101(a)(15)(G)(v).,N
+H1B,Alien in a Specialty Occupation (Profession),INA 101(a)(15)(H)(i)(b).,N
+H1B1,Chilean or Singaporean National to Work in a  Specialty Occupation,INA 101(a)(15)(H)(i)(b1).,N
+H1C,Nurse in health professional shortage area,INA 101(a)(15)(H)(i)(c).,N
+H2A,Temporary Worker Performing Agricultural Services  Unavailable in the United States,INA 101(a)(15)(H)(ii)(a).,N
+H2B,Temporary Worker Performing Other Services  Unavailable in the United States,INA 101(a)(15)(H)(ii)(b).,N
+H3,Trainee,INA 101(a)(15)(H)(iii).,N
+H4,"Spouse or Child of Alien Classified H1B/B1/C,  H2A/B, or H–3",INA 101(a)(15)(H)(iv).,N
+I,"Representative of Foreign Information Media, Spouse  and Child",INA 101(a)(15)(I).,N
+J1,Exchange Visitor,INA 101(a)(15)(J).,N
+J2,Spouse or Child of J1,INA 101(a)(15)(J).,N
+K1,Fianc�(e) of United States Citizen,INA 101(a)(15)(K)(i).,N
+K2,Child of Fianc�(e) of U.S. Citizen,INA 101(a)(15)(K)(iii).,N
+K3,Spouse of U.S. Citizen awaiting availability of  immigrant visa,INA 101(a)(15)(K)(ii).,N
+K4,Child of K3,INA 101(a)(15)(K)(iii).,N
+L1,"Intracompany Transferee (Executive, Managerial, and  Specialized Knowledge Personnel Continuing Employment with International Firm  or Corporation)",INA 101(a)(15)(L).,N
+L2,Spouse or Child of Intracompany Transferee,INA 101(a)(15)(L).,N
+M1,Vocational Student or Other Nonacademic Student,INA 101(a)(15)(M)(i).,N
+M2,Spouse or Child of M1,INA 101(a)(15)(M)(ii).,N
+M3,Canadian or Mexican national commuter student  (Vocational student or other nonacademic student),INA 101(a)(15)(M)(iii).,N
+N8,Parent of an Alien Classified SK3 or SN3,INA 101(a)(15)(N)(i).,N
+N9,"Child of N8 or of SK1, SK2, SK4, SN1, SN2 or SN4",INA 101(a)(15)(N)(ii).,N
+NATO 1,"Principal Permanent Representative of Member State  to NATO (including any of its Subsidiary Bodies) Resident in the U.S. and  Resident Members of Official Staff; Secretary General, Assistant Secretaries  General, and Executive Secretary of NATO; Other Permanent NATO Officials of  Similar Rank, or Immediate Family","Art. 12, 5 UST 1094; Art. 20, 5 UST 1098.",N
+NATO 2,"Other Representative of member state to NATO  (including any of its Subsidiary Bodies) including Representatives, Advisers,  and Technical Experts of Delegations, or Immediate Family; Dependents of  Member of a Force Entering in Accordance with the Provisions of the NATO  Status-of-Forces Agreement or in Accordance with the provisions of the  “Protocol on the Status of International Military Headquarters”;  Members of Such a Force if Issued Visas","Art. 13, 5 UST 1094; Art. 1, 4 UST 1794; Art. 3, 4  UST 1796.",N
+NATO 3,"Official Clerical Staff Accompanying Representative  of Member State to NATO (including any of its Subsidiary Bodies), or  Immediate Family","Art. 14, 5 UST 1096.",N
+NATO 4,"Official of NATO (Other Than Those Classifiable as  NATO1), or Immediate Family","Art. 18, 5 UST 1098.",N
+NATO 5,"Experts, Other Than NATO Officials Classifiable  Under NATO4, Employed in Missions on Behalf of NATO, and their Dependents","Art. 21, 5 UST 1100.",N
+NATO 6,Member of a Civilian Component Accompanying a Force  Entering in Accordance with the Provisions of the NATO Status-of-Forces  Agreement; Member of a Civilian Component Attached to or Employed by an  Allied Headquarters Under the “Protocol on the Status of International  Military Headquarters” Set Up Pursuant to the North Atlantic Treaty;  and their Dependents,"Art. 1, 4 UST 1794; Art. 3, 5 UST 877.",N
+NATO 7,"Attendant, Servant, or Personal Employee of NATO1,  NATO2, NATO 3, NATO4, NATO5, and NATO6 Classes, or Immediate Family","Arts. 12–20, 5 UST 1094–1098.",N
+O1,"Alien with Extraordinary Ability in Sciences, Arts,  Education, Business or Athletics",INA 101(a)(15)(O)(i).,N
+O2,Alien Accompanying and Assisting in the Artistic or  Athletic Performance by O1,INA 101(a)(15)(O)(ii).,N
+O3,Spouse or Child of O1 or O2,INA 101(a)(15)(O)(iii).,N
+P1,Internationally Recognized Athlete or Member of  Internationally Recognized Entertainment Group,INA 101(a)(15)(P)(i).,N
+P2,Artist or Entertainer in a Reciprocal Exchange  Program,INA 101(a)(15)(P)(ii).,N
+P3,Artist or Entertainer in a Culturally Unique  Program,INA 101(a)(15)(P)(iii).,N
+P4,"Spouse or Child of P1, P2, or P3",INA 101(a)(15)(P)(iv).,N
+Q1,Participant in an International Cultural Exchange  Program,INA 101(a)(15)(Q)(i).,N
+R1,Alien in a Religious Occupation,INA 101(a)(15)(R).,N
+R2,Spouse or Child of R1,INA 101(a)(15)(R).,N
+S5,Certain Aliens Supplying Critical Information  Relating to a Criminal Organization or Enterprise,INA 101(a)(15)(S)(i).,N
+S6,Certain Aliens Supplying Critical Information  Relating to Terrorism,INA 101(a)(15)(S)(ii).,N
+S7,Qualified Family Member of S5 or S6,INA 101(a)(15)(S).,N
+T1,Victim of a severe form of trafficking in persons,INA 101(a)(15)(T)(i).,N
+T2,Spouse of T1,INA 101(a)(15)(T)(ii).,N
+T3,Child of T1,INA 101(a)(15)(T)(ii).,N
+T4,Parent of T1 under 21 years of age,INA 101(a)(15)(T)(ii).,N
+T5,Unmarried Sibling under age 18 of T1 under 21 years  of age,INA 101(a)(15)(T)(ii),N
+T6,Adult or Minor Child of a Derivative Beneficiary of  a T1,INA 101(a)(15)(T)(ii),N
+TN,USMCA Professional,INA 214(e)(1).,N
+TD,Spouse or Child of USMCA Professional,INA 214(e)(1).,N
+U1,Victim of criminal activity,INA 101(a)(15)(U)(i).,N
+U2,Spouse of U1,INA 101(a)(15)(U)(ii).,N
+U3,Child of U1,INA 101(a)(15)(U)(ii).,N
+U4,Parent of U1 under 21 years of age,INA 101(a)(15)(U)(ii).,N
+U5,Unmarried Sibling under age 18 of U1 under 21 years  of age,INA 101(a)(15)(U)(ii).,N
+V1,Spouse of a Lawful Permanent Resident Alien  Awaiting Availability of Immigrant Visa,INA 101(a)(15)(V)(i) or INA 101(a)(15)(V)(ii).,N
+V2,Child of a Lawful Permanent Resident Alien Awaiting  Availability of Immigrant Visa,INA 101(a)(15)(V)(i) or INA 101(a)(15)(V)(ii).,N
+V3,Child of a V1 or V2,INA 203(d) & INA 101(a)(15)(V)(i) or INA  101(a)(15)(V)(ii).,N
